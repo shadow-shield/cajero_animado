@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../model/atm_model.dart';
 
@@ -43,7 +44,7 @@ class ATMController extends GetxController {
 
   bool verificarCodigoTemporal(String cuenta, int codigoTemporal) {
     if (cuentasBloqueadas[cuenta] == true) {
-      Get.snackbar('Cuenta Bloqueada', 'La cuenta ya está bloqueada.');
+      Get.snackbar('Cuenta Bloqueada', 'La cuenta se encuentra en estado bloqueada.');
       Get.offAllNamed('/');
       return false;
     }
@@ -55,7 +56,7 @@ class ATMController extends GetxController {
     if (intentosPorCuenta[cuenta]! >= 3) {
       cuentasBloqueadas[cuenta] = true;
       Get.snackbar(
-          'Cuenta Bloqueada', 'Has superado el número de intentos permitidos.');
+          'Cuenta Bloqueada', 'Has superado el número de intentos permitidos.',backgroundColor: Colors.white,colorText: Colors.blue);
       Get.offAllNamed('/');
       return false;
     }
@@ -67,14 +68,14 @@ class ATMController extends GetxController {
     } else {
       intentosPorCuenta[cuenta] = (intentosPorCuenta[cuenta] ?? 0) + 1;
       Get.snackbar('Error',
-          'Código Temporal Incorrecto. Intento ${intentosPorCuenta[cuenta]}/3');
+          'Código Temporal Incorrecto. Intento ${intentosPorCuenta[cuenta]}/3',backgroundColor: Colors.white,colorText: Colors.blue);
       return false;
     }
   }
 
   bool verificarCodigoFijo(String cuenta, int codigoFijo) {
     if (cuentasBloqueadas[cuenta] == true) {
-      Get.snackbar('Cuenta Bloqueada', 'La cuenta ya está bloqueada.');
+      Get.snackbar('Cuenta Bloqueada', 'La cuenta se encuentra en estado bloqueada.',backgroundColor: Colors.white,colorText: Colors.blue);
       Get.offAllNamed('/');
       return false;
     }
@@ -86,7 +87,7 @@ class ATMController extends GetxController {
     if (intentosPorCuenta[cuenta]! >= 3) {
       cuentasBloqueadas[cuenta] = true;
       Get.snackbar(
-          'Cuenta Bloqueada', 'Has superado el número de intentos permitidos.');
+          'Cuenta Bloqueada', 'Has superado el número de intentos permitidos.',backgroundColor: Colors.white,colorText: Colors.blue);
      
       Get.offAllNamed('/');
       return false;
@@ -99,7 +100,7 @@ class ATMController extends GetxController {
     } else {
       intentosPorCuenta[cuenta] = (intentosPorCuenta[cuenta] ?? 0) + 1;
       Get.snackbar('Error',
-          'Código Fijo Incorrecto. Intento ${intentosPorCuenta[cuenta]}/3');
+          'Código  Incorrecto. Intento ${intentosPorCuenta[cuenta]}/3' ,backgroundColor: Colors.white,colorText: Colors.blue);
       return false;
     }
   }

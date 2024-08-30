@@ -1,3 +1,4 @@
+import 'package:cajero_animado/screens/pantalla_codigo_fijo.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'screens/pantalla_principal.dart';
@@ -21,6 +22,7 @@ class CajeroApp extends StatelessWidget {
         '/': (context) => PantallaPrincipal(),
         '/codigo': (context) => PantallaCodigo(),
         '/codigo-temporal': (context) => PantallaCodigoTemporal(),
+        '/codigo-fijo': (context) => PantallaCodigoFijo(),
         '/retiro': (context) => PantallaRetiro(),
         '/recibo': (context) => PantallaRecibo(),
       },

@@ -15,12 +15,10 @@ class PantallaCodigo extends StatelessWidget {
         children: [
           Positioned.fill(
             child: Image.asset(
-              'assets/fondoapp.jpg', 
+              'assets/fondoapp.jpg',
               fit: BoxFit.cover,
             ),
           ),
-          
-          
           Padding(
             padding: const EdgeInsets.only(top: 200),
             child: Column(
@@ -57,23 +55,20 @@ class PantallaCodigo extends StatelessWidget {
                   width: 350,
                   child: TextField(
                     controller: tarjetaController,
-                    
                     decoration: InputDecoration(
-                      
                       border: UnderlineInputBorder(
                         borderRadius: BorderRadius.circular(50),
                         borderSide: BorderSide(color: Colors.white),
                       ),
-                      labelText: 'Número de Tarjeta',
+                      labelText: 'Número de Cuenta',
                       filled: true,
-                      
-                      suffixIcon: Image.asset('assets/tarjeta.gif',width: 1,),
+                      suffixIcon: Image.asset('assets/tarjeta.gif', width: 1,),
                       labelStyle: TextStyle(
                         color: Colors.blue,
                         fontSize: 15,
                         fontWeight: FontWeight.bold
                       ),
-                      fillColor: Colors.white, 
+                      fillColor: Colors.white,
                     ),
                     keyboardType: TextInputType.number,
                   ),
@@ -92,14 +87,14 @@ class PantallaCodigo extends StatelessWidget {
                         borderSide: BorderSide(color: Colors.white),
                       ),
                       labelText: 'Clave Segura',
-                      suffixIcon: Image.asset('assets/contrasena.gif',width: 1,),
+                      suffixIcon: Image.asset('assets/contrasena.gif', width: 1,),
                       labelStyle: TextStyle(
                         color: Colors.blue,
                         fontSize: 16,
                         fontWeight: FontWeight.bold
-                        ),
-                      filled: true, 
-                      fillColor: Colors.white, 
+                      ),
+                      filled: true,
+                      fillColor: Colors.white,
                     ),
                     obscureText: true,
                     keyboardType: TextInputType.number,
@@ -108,15 +103,24 @@ class PantallaCodigo extends StatelessWidget {
                 SizedBox(height: 20),
                 ElevatedButton(
                   style: ButtonStyle(
-                    backgroundColor: WidgetStateProperty.all(Colors.white)
+                    backgroundColor: WidgetStateProperty.all(Colors.white),
                   ),
                   onPressed: () {
+                   
                     controller.autenticar(tarjetaController.text, claveController.text);
+                    
+                    
                     if (controller.verificarAutenticacion()) {
-                      controller.generarCodigoTemporal();
-                      Get.toNamed('/codigo-temporal');
+                      if (tarjetaController.text == '11234567890') {
+                        Get.toNamed('/codigo-fijo');
+                      } else if (tarjetaController.text == '01234567890') {
+                        controller.generarCodigoTemporal();
+                        Get.toNamed('/codigo-temporal');
+                      } else {
+                        Get.snackbar('Error', 'Número de cuenta no reconocido', backgroundColor: Colors.white, colorText: Colors.blue);
+                      }
                     } else {
-                      Get.snackbar('Error', 'Tarjeta o clave segura incorrecta',backgroundColor: Colors.white,colorText: Colors.blue);
+                      Get.snackbar('Error', 'Tarjeta o clave segura incorrecta', backgroundColor: Colors.white, colorText: Colors.blue);
                     }
                   },
                   child: SizedBox(
@@ -125,20 +129,16 @@ class PantallaCodigo extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         SizedBox(width: 10,),
-                        Text('Ingresar',style: TextStyle(
+                        Text('Ingresar', style: TextStyle(
                           color: Colors.blue,
                           fontSize: 16,
                           fontWeight: FontWeight.bold
-                          ),),
-                        SizedBox(
-                          width: 7,
-
-                        ),
+                        ),),
+                        SizedBox(width: 7,),
                         Icon(
                           Icons.arrow_forward,
                           size: 22,
                           color: Colors.blue,
-                          
                         )
                       ],
                     ),
@@ -146,11 +146,7 @@ class PantallaCodigo extends StatelessWidget {
                 ),
               ],
             ),
-            
           ),
-          
-          
-          
         ],
       ),
     );

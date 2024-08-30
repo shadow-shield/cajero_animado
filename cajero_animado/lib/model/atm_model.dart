@@ -1,14 +1,14 @@
 class ATMModel {
   final Map<String, String> credenciales = {
-    '1234567890123456': '1234',
-    '0987654321': '4321',
-    
+    '11234567890': '1234',
+    '01234567890': '4321',
   };
 
   final List<int> billetes = [10000, 20000, 50000, 100000];
   Map<String, int> intentosClave = {};
   int? codigoTemporal;
   int tiempocodigo = 0;
+  final int codigofijo = 654321; // Código estático
 
   bool autenticar(String tarjeta, String clave) {
     if (intentosClave[tarjeta] != null && intentosClave[tarjeta]! >= 3) {
@@ -35,7 +35,7 @@ class ATMModel {
 
   bool verificarCodigoTemporal(int codigoIngresado) {
     final int tiempoActual = DateTime.now().millisecondsSinceEpoch;
-    if (tiempoActual - tiempocodigo > 120000) {
+    if (codigoTemporal == null || tiempoActual - tiempocodigo > 120000) {
       return false;
     }
     return codigoIngresado == codigoTemporal;
@@ -59,5 +59,12 @@ class ATMModel {
       }
     }
     return billetesUsados;
+  }
+
+  int obtenerCodigoEstatico(String tarjeta) {
+    if (tarjeta == '11234567890') {
+      return codigofijo;
+    }
+    return -1; // Retorna un valor inválido si no es la cuenta esperada
   }
 }

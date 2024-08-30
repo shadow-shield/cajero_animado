@@ -44,7 +44,7 @@ class ATMController extends GetxController {
 
   bool verificarCodigoTemporal(String cuenta, int codigoTemporal) {
     if (cuentasBloqueadas[cuenta] == true) {
-      Get.snackbar('Cuenta Bloqueada', 'La cuenta se encuentra en estado bloqueada.');
+      Get.snackbar('Cuenta Bloqueada', 'La cuenta se encuentra en estado bloqueada.',backgroundColor: Colors.white,colorText: Colors.blue);
       Get.offAllNamed('/');
       return false;
     }

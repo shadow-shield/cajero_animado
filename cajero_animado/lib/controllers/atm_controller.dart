@@ -16,12 +16,11 @@ class ATMController extends GetxController {
     numeroTarjeta = tarjeta;
     this.clave = clave;
     update();
-    
     // Establece el código estático si la tarjeta es la esperada
     if (numeroTarjeta == '11234567890') {
       codigoEstatico = atmModel.obtenerCodigoEstatico(numeroTarjeta!);
+      update();
     }
-    update(); // Asegúrate de llamar a update() para refrescar la interfaz de usuario
   }
 
   bool verificarAutenticacion() {
@@ -29,9 +28,9 @@ class ATMController extends GetxController {
   }
 
   void generarCodigoTemporal() {
-    if (numeroTarjeta == '01234567890') { 
+    if (numeroTarjeta == '01234567890') { // Genera código solo para esta cuenta
       atmModel.generarCodigoTemporal();
-      codigoTemporal = atmModel.codigoTemporal; 
+      codigoTemporal = atmModel.codigoTemporal; // Almacena el código en el controlador
       update();
     }
   }
@@ -42,10 +41,15 @@ class ATMController extends GetxController {
 
   bool verificarCodigoTemporal(int codigo) {
     if (numeroTarjeta == '11234567890') {
-      // No se verifica código temporal para la cuenta con código estático
+      
       return true;
     }
     return atmModel.verificarCodigoTemporal(codigo);
+  }
+
+  bool verificarCodigoFijo(int codigoFijo) {
+    
+    return atmModel.codigofijo == codigoFijo;
   }
 
   void calcularBilletes(int cantidad) {

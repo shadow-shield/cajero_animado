@@ -8,7 +8,7 @@ class ATMModel {
   Map<String, int> intentosClave = {};
   int? codigoTemporal;
   int tiempocodigo = 0;
-  final int codigofijo = 654321; // Código estático
+  final int codigofijo = 654321; 
 
   bool autenticar(String tarjeta, String clave) {
     if (intentosClave[tarjeta] != null && intentosClave[tarjeta]! >= 3) {
@@ -65,6 +65,6 @@ class ATMModel {
     if (tarjeta == '11234567890') {
       return codigofijo;
     }
-    return -1; // Retorna un valor inválido si no es la cuenta esperada
+    return -1; 
   }
 }

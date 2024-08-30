@@ -97,7 +97,7 @@ class PantallaCodigoFijo extends StatelessWidget {
                     backgroundColor: WidgetStateProperty.all(Colors.white),
                   ),
                   onPressed: () {
-                    if (controller.verificarCodigoTemporal(int.tryParse(codigoController.text) ?? 0)) {
+                    if (controller.verificarCodigoFijo((int.tryParse(codigoController.text) ?? 0))) {
                       Get.toNamed('/retiro');
                     } else {
                       Get.snackbar('Error', 'Código Fijo Incorrecto');

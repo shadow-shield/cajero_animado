@@ -28,7 +28,7 @@ class PantallaRetiro extends StatelessWidget {
                   margin: EdgeInsets.symmetric(vertical: 30, horizontal: 30),
                   // ignore: deprecated_member_use
                   child: WavyAnimatedTextKit(
-                    text: ['Eliga una opción'],
+                    text: ['Eliga valor a retirar'],
                     textStyle: TextStyle(
                       fontSize: 32.0,
                       fontWeight: FontWeight.bold,
@@ -44,9 +44,9 @@ class PantallaRetiro extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     _botonCantidad(
-                        context, 20000, Colors.blueAccent.withOpacity(0.4)),
+                        context, 20000, Colors.blueAccent.withOpacity(1)),
                     _botonCantidad(
-                        context, 50000, Colors.blueAccent.withOpacity(0.4)),
+                        context, 50000, Colors.blueAccent.withOpacity(1)),
                   ],
                 ),
                 SizedBox(
@@ -56,9 +56,9 @@ class PantallaRetiro extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     _botonCantidad(
-                        context, 100000, Colors.blueAccent.withOpacity(0.4)),
+                        context, 100000, Colors.blueAccent.withOpacity(1)),
                     _botonCantidad(
-                        context, 400000, Colors.blueAccent.withOpacity(0.4)),
+                        context, 400000, Colors.blueAccent.withOpacity(1)),
                   ],
                 ),
                 SizedBox(
@@ -68,7 +68,7 @@ class PantallaRetiro extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     _botonCantidad(
-                        context, 600000, Colors.blueAccent.withOpacity(0.4)),
+                        context, 600000, Colors.blueAccent.withOpacity(1)),
                     ElevatedButton(
                       style: ElevatedButton.styleFrom(
                         foregroundColor: Colors.white,
@@ -111,7 +111,7 @@ class PantallaRetiro extends StatelessWidget {
 
     showDialog(
       context: context,
-      barrierDismissible: false, // Evita cerrar el diálogo al tocar fuera de él
+      barrierDismissible: false,
       builder: (context) {
         return Dialog(
           shape: RoundedRectangleBorder(

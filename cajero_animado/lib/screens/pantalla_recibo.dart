@@ -97,8 +97,9 @@ class PantallaRecibo extends StatelessWidget {
                                               color: Colors.black38,
                                               fontSize: 14)),
                                       Text(''),
-                                      Text('TARJETA NO.',
+                                      Text('NO. DE CUENTA',
                                           style: TextStyle(
+                                              
                                               color: Colors.black38,
                                               fontSize: 14)),
                                       Text(''),
@@ -116,19 +117,19 @@ class PantallaRecibo extends StatelessWidget {
                                           style: TextStyle(
                                               color: Colors.black38,
                                               fontSize: 14)),
-                                      Text('100k',
+                                      Text('\$100.000',
                                           style: TextStyle(
                                               color: Colors.black38,
                                               fontSize: 14)),
-                                      Text('50k',
+                                      Text('\$50.000',
                                           style: TextStyle(
                                               color: Colors.black38,
                                               fontSize: 14)),
-                                      Text('20k',
+                                      Text('\$20.000',
                                           style: TextStyle(
                                               color: Colors.black38,
                                               fontSize: 14)),
-                                      Text('10k',
+                                      Text('\$10.000',
                                           style: TextStyle(
                                               color: Colors.black38,
                                               fontSize: 14)),

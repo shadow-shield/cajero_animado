@@ -74,18 +74,10 @@ class PantallaPrincipal extends StatelessWidget {
                       foregroundColor: WidgetStateProperty.all(Colors.blue),
                       padding: WidgetStateProperty.all(EdgeInsets.symmetric(
                           horizontal: 20.0, vertical: 5.0)),
-                      shape: WidgetStateProperty.all(
-                        RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(22),
-                          side: BorderSide(
-                            color: Colors.white12,
-                            width: 2.0,
-                          ),
-                        ),
-                      ),
+                      
                     ),
                     onPressed: () => Get.toNamed('/codigo'),
-                    label: Text('Siguiente'),
+                    label: Text('Comenzar'),
                     icon: Image.asset(
                       'assets/next.gif',
                       width: 35,

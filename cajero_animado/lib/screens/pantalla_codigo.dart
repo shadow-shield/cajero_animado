@@ -11,6 +11,7 @@ class PantallaCodigo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(),
       body: Stack(
         children: [
           Positioned.fill(
@@ -19,145 +20,150 @@ class PantallaCodigo extends StatelessWidget {
               fit: BoxFit.cover,
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.only(top: 200),
-            child: Column(
-              children: [
-                SizedBox(
-                  height: 100,
-                  child: AnimatedTextKit(
-                    animatedTexts: [
-                      TypewriterAnimatedText(
-                        'Ingresa tu número de tarjeta y clave para continuar.',
-                        textStyle: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white,
+          SingleChildScrollView(
+            
+            child: Padding(
+              padding: const EdgeInsets.only(top: 100),
+              child: Column(
+                children: [
+                  SizedBox(
+                    height: 100,
+                    child: AnimatedTextKit(
+                      animatedTexts: [
+                        TypewriterAnimatedText(
+                          'Ingresa tu número de cuenta y clave para continuar.',
+                          textStyle: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          ),
+                          speed: Duration(milliseconds: 100),
                         ),
-                        speed: Duration(milliseconds: 100),
-                      ),
-                      TypewriterAnimatedText(
-                        'Asegúrate de que los datos sean correctos.',
-                        textStyle: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white,
+                        TypewriterAnimatedText(
+                          'Asegúrate de que los datos sean correctos.',
+                          textStyle: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          ),
+                          speed: Duration(milliseconds: 100),
                         ),
-                        speed: Duration(milliseconds: 100),
-                      ),
-                    ],
-                    onTap: () {
-                      print("Tap Event");
-                    },
-                  ),
-                ),
-                SizedBox(
-                  width: 350,
-                  child: TextField(
-                    controller: tarjetaController,
-                    decoration: InputDecoration(
-                      border: UnderlineInputBorder(
-                        borderRadius: BorderRadius.circular(50),
-                        borderSide: BorderSide(color: Colors.white),
-                      ),
-                      labelText: 'Número de Cuenta',
-                      filled: true,
-                      suffixIcon: Image.asset(
-                        'assets/tarjeta.gif',
-                        width: 1,
-                      ),
-                      labelStyle: TextStyle(
-                          color: Colors.blue,
-                          fontSize: 15,
-                          fontWeight: FontWeight.bold),
-                      fillColor: Colors.white,
+                      ],
+                      onTap: () {
+                        print("Tap Event");
+                      },
                     ),
-                    keyboardType: TextInputType.number,
                   ),
-                ),
-                Container(
-                  width: 500,
-                ),
-                SizedBox(height: 16),
-                SizedBox(
-                  width: 350,
-                  child: TextField(
-                    controller: claveController,
-                    decoration: InputDecoration(
-                      border: UnderlineInputBorder(
-                        borderRadius: BorderRadius.circular(50),
-                        borderSide: BorderSide(color: Colors.white),
+                  SizedBox(
+                    width: 350,
+                    child: TextField(
+                      controller: tarjetaController,
+                      decoration: InputDecoration(
+                        border: UnderlineInputBorder(
+                          borderRadius: BorderRadius.circular(50),
+                          borderSide: BorderSide(color: Colors.white),
+                        ),
+                        labelText: 'Número de Cuenta',
+                        filled: true,
+                        suffixIcon: Image.asset(
+                          'assets/cuenta.gif',
+                          width: 1,
+                        ),
+                        labelStyle: TextStyle(
+                            color: Colors.blue,
+                            fontSize: 15,
+                            fontWeight: FontWeight.bold),
+                        fillColor: Colors.white,
                       ),
-                      labelText: 'Clave Segura',
-                      suffixIcon: Image.asset(
-                        'assets/contrasena.gif',
-                        width: 1,
-                      ),
-                      labelStyle: TextStyle(
-                          color: Colors.blue,
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold),
-                      filled: true,
-                      fillColor: Colors.white,
+                      keyboardType: TextInputType.number,
                     ),
-                    obscureText: true,
-                    keyboardType: TextInputType.number,
                   ),
-                ),
-                SizedBox(height: 20),
-                ElevatedButton(
-                  style: ButtonStyle(
-                    backgroundColor: WidgetStateProperty.all(Colors.white),
+                  Container(
+                    width: 500,
                   ),
-                  onPressed: () {
-                    controller.autenticar(
-                        tarjetaController.text, claveController.text);
-
-                    if (controller.verificarAutenticacion()) {
-                      if (tarjetaController.text == '11234567890') {
-                        Get.toNamed('/codigo-fijo');
-                      } else if (tarjetaController.text == '01234567890') {
-                        controller.generarCodigoTemporal();
-                        Get.toNamed('/codigo-temporal');
+                  SizedBox(height: 16),
+                  SizedBox(
+                    width: 350,
+                    child: TextField(
+                      controller: claveController,
+                      decoration: InputDecoration(
+                        border: UnderlineInputBorder(
+                          borderRadius: BorderRadius.circular(50),
+                          borderSide: BorderSide(color: Colors.white),
+                        ),
+                        labelText: 'Clave Segura',
+                        suffixIcon: Image.asset(
+                          'assets/contrasena.gif',
+                          width: 1,
+                        ),
+                        labelStyle: TextStyle(
+                            color: Colors.blue,
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold),
+                        filled: true,
+                        fillColor: Colors.white,
+                      ),
+                      obscureText: true,
+                      keyboardType: TextInputType.number,
+                    ),
+                  ),
+                  SizedBox(height: 20),
+                  ElevatedButton(
+                    style: ButtonStyle(
+                      backgroundColor: WidgetStateProperty.all(Colors.white),
+                    ),
+                    onPressed: () {
+                      controller.autenticar(
+                          tarjetaController.text, claveController.text);
+            
+                      if (controller.verificarAutenticacion()) {
+                        if (tarjetaController.text == '11234567890') {
+                          Get.toNamed('/codigo-fijo');
+                        } else if (tarjetaController.text == '01234567890') {
+                          controller.generarCodigoTemporal();
+                          Get.toNamed('/codigo-temporal');
+                        } else {
+                          Get.snackbar('Error', 'Número de cuenta no reconocido',
+                              backgroundColor: Colors.white,
+                              colorText: Colors.blue);
+                        }
                       } else {
-                        Get.snackbar('Error', 'Número de cuenta no reconocido',
+                        Get.snackbar('Error', 'Tarjeta o clave segura incorrecta',
                             backgroundColor: Colors.white,
                             colorText: Colors.blue);
                       }
-                    } else {
-                      Get.snackbar('Error', 'Tarjeta o clave segura incorrecta',
-                          backgroundColor: Colors.white,
-                          colorText: Colors.blue);
-                    }
-                  },
-                  child: SizedBox(
-                    width: 100,
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        SizedBox(
-                          width: 10,
-                        ),
-                        Text(
-                          'Ingresar',
-                          style: TextStyle(
-                              color: Colors.blue,
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold),
-                        ),
-                        SizedBox(
-                          width: 7,
-                        ),
-                        Icon(
-                          Icons.arrow_forward,
-                          size: 22,
-                          color: Colors.blue,
-                        )
-                      ],
+                    },
+                    child: SizedBox(
+                      width: 100,
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          SizedBox(
+                            width: 10,
+                          ),
+                          Text(
+                            'Ingresar',
+                            style: TextStyle(
+                                color: Colors.blue,
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold),
+                          ),
+                          SizedBox(
+                            width: 7,
+                          ),
+                          Icon(
+                            Icons.arrow_forward,
+                            size: 22,
+                            color: Colors.blue,
+                          )
+                        ],
+                      ),
                     ),
                   ),
-                ),
-              ],
+                  SizedBox(height: 50,),
+                  Image.asset('assets/personas-mobile.png')
+                ],
+              ),
             ),
           ),
         ],

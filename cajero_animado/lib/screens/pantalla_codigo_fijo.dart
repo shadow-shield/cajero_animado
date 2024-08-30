@@ -19,8 +19,8 @@ class PantallaCodigoFijo extends StatelessWidget {
           ),
           Container(
             margin: EdgeInsets.only(
-              top: 100,
-              left: 130,
+              top: 180,
+              left: 120,
             ),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(100),
@@ -32,7 +32,7 @@ class PantallaCodigoFijo extends StatelessWidget {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(top: 300),
+            padding: const EdgeInsets.only(top: 380),
             child: Column(
               children: [
                 Container(
@@ -53,7 +53,7 @@ class PantallaCodigoFijo extends StatelessWidget {
                     opacity: 1.0,
                     duration: Duration(seconds: 2),
                     child: Text(
-                      'Código Generado: ${controller.atmModel.codigofijo}',
+                      'Código : ${controller.atmModel.codigofijo}',
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 15,
@@ -68,7 +68,7 @@ class PantallaCodigoFijo extends StatelessWidget {
                   child: TextField(
                     controller: codigoController,
                     decoration: InputDecoration(
-                        labelText: 'Ingrese Código Fijo',
+                        labelText: 'Ingrese Código ',
                         labelStyle: TextStyle(
                             fontSize: 15,
                             fontWeight: FontWeight.bold,
@@ -87,11 +87,11 @@ class PantallaCodigoFijo extends StatelessWidget {
                 SizedBox(height: 20),
                 ElevatedButton(
                   style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all(Colors.white),
+                    backgroundColor: WidgetStateProperty.all(Colors.white),
                   ),
                   onPressed: () {
                     String cuenta =
-                        '11234567890'; // Reemplaza con el identificador de la cuenta actual
+                        '11234567890'; 
                     if (controller.verificarCodigoFijo(
                         cuenta, int.tryParse(codigoController.text) ?? 0)) {
                       Get.toNamed('/retiro');
@@ -120,6 +120,7 @@ class PantallaCodigoFijo extends StatelessWidget {
                     ),
                   ),
                 ),
+               
               ],
             ),
           ),

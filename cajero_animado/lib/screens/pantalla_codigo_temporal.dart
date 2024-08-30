@@ -19,8 +19,8 @@ class PantallaCodigoTemporal extends StatelessWidget {
           ),
           Container(
             margin: EdgeInsets.only(
-              top: 100,
-              left: 130,
+              top: 180,
+              left: 120,
             ),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(100),
@@ -32,7 +32,7 @@ class PantallaCodigoTemporal extends StatelessWidget {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(top: 300),
+            padding: const EdgeInsets.only(top: 380),
             child: Column(
               children: [
                 Container(
@@ -53,7 +53,7 @@ class PantallaCodigoTemporal extends StatelessWidget {
                     opacity: 1.0,
                     duration: Duration(seconds: 2),
                     child: Text(
-                      'Código Generado: ${controller.atmModel.codigoTemporal}',
+                      'Código : ${controller.atmModel.codigoTemporal}',
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 15,
@@ -68,7 +68,7 @@ class PantallaCodigoTemporal extends StatelessWidget {
                   child: TextField(
                     controller: codigoController,
                     decoration: InputDecoration(
-                        labelText: 'Ingrese Código Generado',
+                        labelText: 'Ingrese Código ',
                         labelStyle: TextStyle(
                             fontSize: 15,
                             fontWeight: FontWeight.bold,
@@ -87,11 +87,11 @@ class PantallaCodigoTemporal extends StatelessWidget {
                 SizedBox(height: 20),
                 ElevatedButton(
                   style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all(Colors.white),
+                    backgroundColor: WidgetStateProperty.all(Colors.white),
                   ),
                   onPressed: () {
                     String cuenta =
-                        '01234567890'; // Reemplaza con el identificador de la cuenta actual
+                        '01234567890';
                     if (controller.verificarCodigoTemporal(
                         cuenta, int.tryParse(codigoController.text) ?? 0)) {
                       Get.toNamed('/retiro');

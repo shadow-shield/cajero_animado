@@ -62,12 +62,14 @@ class PantallaCodigo extends StatelessWidget {
                       ),
                       labelText: 'Número de Cuenta',
                       filled: true,
-                      suffixIcon: Image.asset('assets/tarjeta.gif', width: 1,),
-                      labelStyle: TextStyle(
-                        color: Colors.blue,
-                        fontSize: 15,
-                        fontWeight: FontWeight.bold
+                      suffixIcon: Image.asset(
+                        'assets/tarjeta.gif',
+                        width: 1,
                       ),
+                      labelStyle: TextStyle(
+                          color: Colors.blue,
+                          fontSize: 15,
+                          fontWeight: FontWeight.bold),
                       fillColor: Colors.white,
                     ),
                     keyboardType: TextInputType.number,
@@ -87,12 +89,14 @@ class PantallaCodigo extends StatelessWidget {
                         borderSide: BorderSide(color: Colors.white),
                       ),
                       labelText: 'Clave Segura',
-                      suffixIcon: Image.asset('assets/contrasena.gif', width: 1,),
-                      labelStyle: TextStyle(
-                        color: Colors.blue,
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold
+                      suffixIcon: Image.asset(
+                        'assets/contrasena.gif',
+                        width: 1,
                       ),
+                      labelStyle: TextStyle(
+                          color: Colors.blue,
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold),
                       filled: true,
                       fillColor: Colors.white,
                     ),
@@ -106,10 +110,9 @@ class PantallaCodigo extends StatelessWidget {
                     backgroundColor: WidgetStateProperty.all(Colors.white),
                   ),
                   onPressed: () {
-                   
-                    controller.autenticar(tarjetaController.text, claveController.text);
-                    
-                    
+                    controller.autenticar(
+                        tarjetaController.text, claveController.text);
+
                     if (controller.verificarAutenticacion()) {
                       if (tarjetaController.text == '11234567890') {
                         Get.toNamed('/codigo-fijo');
@@ -117,10 +120,14 @@ class PantallaCodigo extends StatelessWidget {
                         controller.generarCodigoTemporal();
                         Get.toNamed('/codigo-temporal');
                       } else {
-                        Get.snackbar('Error', 'Número de cuenta no reconocido', backgroundColor: Colors.white, colorText: Colors.blue);
+                        Get.snackbar('Error', 'Número de cuenta no reconocido',
+                            backgroundColor: Colors.white,
+                            colorText: Colors.blue);
                       }
                     } else {
-                      Get.snackbar('Error', 'Tarjeta o clave segura incorrecta', backgroundColor: Colors.white, colorText: Colors.blue);
+                      Get.snackbar('Error', 'Tarjeta o clave segura incorrecta',
+                          backgroundColor: Colors.white,
+                          colorText: Colors.blue);
                     }
                   },
                   child: SizedBox(
@@ -128,13 +135,19 @@ class PantallaCodigo extends StatelessWidget {
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        SizedBox(width: 10,),
-                        Text('Ingresar', style: TextStyle(
-                          color: Colors.blue,
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold
-                        ),),
-                        SizedBox(width: 7,),
+                        SizedBox(
+                          width: 10,
+                        ),
+                        Text(
+                          'Ingresar',
+                          style: TextStyle(
+                              color: Colors.blue,
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold),
+                        ),
+                        SizedBox(
+                          width: 7,
+                        ),
                         Icon(
                           Icons.arrow_forward,
                           size: 22,

@@ -14,7 +14,7 @@ class PantallaPrincipal extends StatelessWidget {
           Positioned.fill(
             child: Image.asset(
               'assets/fondoapp.jpg',
-              fit: BoxFit.cover, 
+              fit: BoxFit.cover,
             ),
           ),
           Container(
@@ -72,8 +72,8 @@ class PantallaPrincipal extends StatelessWidget {
                     style: ButtonStyle(
                       backgroundColor: WidgetStateProperty.all(Colors.white),
                       foregroundColor: WidgetStateProperty.all(Colors.blue),
-                      padding: WidgetStateProperty.all(
-                          EdgeInsets.symmetric(horizontal: 20.0, vertical: 5.0)),
+                      padding: WidgetStateProperty.all(EdgeInsets.symmetric(
+                          horizontal: 20.0, vertical: 5.0)),
                       shape: WidgetStateProperty.all(
                         RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(22),
@@ -86,8 +86,10 @@ class PantallaPrincipal extends StatelessWidget {
                     ),
                     onPressed: () => Get.toNamed('/codigo'),
                     label: Text('Siguiente'),
-                    
-                    icon: Image.asset('assets/next.gif', width: 35,),
+                    icon: Image.asset(
+                      'assets/next.gif',
+                      width: 35,
+                    ),
                   ),
                 ],
               ),

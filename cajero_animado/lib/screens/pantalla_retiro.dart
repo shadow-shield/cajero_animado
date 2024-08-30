@@ -14,7 +14,7 @@ class PantallaRetiro extends StatelessWidget {
           Positioned.fill(
             child: Image.asset(
               'assets/fondoapp.jpg',
-              fit: BoxFit.cover,  
+              fit: BoxFit.cover,
             ),
           ),
           Padding(
@@ -25,7 +25,7 @@ class PantallaRetiro extends StatelessWidget {
               children: [
                 // ignore: deprecated_member_use
                 Container(
-                  margin: EdgeInsets.symmetric(vertical: 30,horizontal: 30),
+                  margin: EdgeInsets.symmetric(vertical: 30, horizontal: 30),
                   // ignore: deprecated_member_use
                   child: WavyAnimatedTextKit(
                     text: ['Eliga una opción'],
@@ -43,26 +43,36 @@ class PantallaRetiro extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    _botonCantidad(context, 20000, Colors.blueAccent.withOpacity(0.4)),
-                    _botonCantidad(context, 50000, Colors.blueAccent.withOpacity(0.4)),
+                    _botonCantidad(
+                        context, 20000, Colors.blueAccent.withOpacity(0.4)),
+                    _botonCantidad(
+                        context, 50000, Colors.blueAccent.withOpacity(0.4)),
                   ],
                 ),
-                SizedBox(height: 24,),
+                SizedBox(
+                  height: 24,
+                ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    _botonCantidad(context, 100000, Colors.blueAccent.withOpacity(0.4)),
-                    _botonCantidad(context, 400000, Colors.blueAccent.withOpacity(0.4)),
+                    _botonCantidad(
+                        context, 100000, Colors.blueAccent.withOpacity(0.4)),
+                    _botonCantidad(
+                        context, 400000, Colors.blueAccent.withOpacity(0.4)),
                   ],
                 ),
-                SizedBox(height: 24,),
+                SizedBox(
+                  height: 24,
+                ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    _botonCantidad(context, 600000, Colors.blueAccent.withOpacity(0.4)),
+                    _botonCantidad(
+                        context, 600000, Colors.blueAccent.withOpacity(0.4)),
                     ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        foregroundColor: Colors.white, backgroundColor: Colors.green.withOpacity(1.0),
+                        foregroundColor: Colors.white,
+                        backgroundColor: Colors.green.withOpacity(1.0),
                       ),
                       onPressed: () {
                         _mostrarDialogoOtroValor(context);
@@ -71,7 +81,9 @@ class PantallaRetiro extends StatelessWidget {
                     ),
                   ],
                 ),
-                SizedBox(height: 40,),
+                SizedBox(
+                  height: 40,
+                ),
               ],
             ),
           ),
@@ -83,7 +95,8 @@ class PantallaRetiro extends StatelessWidget {
   Widget _botonCantidad(BuildContext context, int cantidad, Color? color) {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
-        foregroundColor: Colors.white, backgroundColor: color,
+        foregroundColor: Colors.white,
+        backgroundColor: color,
       ),
       onPressed: () {
         controller.calcularBilletes(cantidad);
@@ -94,88 +107,86 @@ class PantallaRetiro extends StatelessWidget {
   }
 
   void _mostrarDialogoOtroValor(BuildContext context) {
-  final TextEditingController _controller = TextEditingController();
+    final TextEditingController _controller = TextEditingController();
 
-  showDialog(
-    context: context,
-    barrierDismissible: false, // Evita cerrar el diálogo al tocar fuera de él
-    builder: (context) {
-      return Dialog(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(20.0),
-        ),
-        elevation: 16,
-        child: Container(
-          padding: EdgeInsets.all(20.0),
-          height: 220,
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Text(
-                'Ingrese cantidad',
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.blue
-                ),
-              ),
-              SizedBox(height: 20),
-              TextField(
-                controller: _controller,
-                keyboardType: TextInputType.number,
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  hintStyle: TextStyle(color: Colors.blue),
-                  hintText: 'Ingrese valor deseado',
-                ),
-                style: TextStyle(fontSize: 18),
-              ),
-              SizedBox(height: 20),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  TextButton(
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
-                    style: TextButton.styleFrom(
-                      foregroundColor: Colors.blue, 
-                    ),
-                    child: Text(
-                      'Cancelar',
-                      style: TextStyle(fontSize: 16),
-                    ),
-                  ),
-                  SizedBox(width: 10),
-                  ElevatedButton(
-                    onPressed: () {
-                      int cantidad = int.tryParse(_controller.text) ?? 0;
-                      if (controller.validarCantidad(cantidad)) {
-                        controller.calcularBilletes(cantidad);
-                        Navigator.of(context).pop();
-                        Get.toNamed('/recibo');
-                      } else {
-                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                          content: Text('Ingrese un múltiplo de 10,000'),
-                        ));
-                      }
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.blue, 
-                    ),
-                    child: Text(
-                      'Aceptar',
-                      style: TextStyle(fontSize: 16, color: Colors.white),
-                    ),
-                  ),
-                ],
-              ),
-            ],
+    showDialog(
+      context: context,
+      barrierDismissible: false, // Evita cerrar el diálogo al tocar fuera de él
+      builder: (context) {
+        return Dialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20.0),
           ),
-        ),
-      );
-    },
-  );
-}
-
+          elevation: 16,
+          child: Container(
+            padding: EdgeInsets.all(20.0),
+            height: 220,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  'Ingrese cantidad',
+                  style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.blue),
+                ),
+                SizedBox(height: 20),
+                TextField(
+                  controller: _controller,
+                  keyboardType: TextInputType.number,
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                    hintStyle: TextStyle(color: Colors.blue),
+                    hintText: 'Ingrese valor deseado',
+                  ),
+                  style: TextStyle(fontSize: 18),
+                ),
+                SizedBox(height: 20),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    TextButton(
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                      style: TextButton.styleFrom(
+                        foregroundColor: Colors.blue,
+                      ),
+                      child: Text(
+                        'Cancelar',
+                        style: TextStyle(fontSize: 16),
+                      ),
+                    ),
+                    SizedBox(width: 10),
+                    ElevatedButton(
+                      onPressed: () {
+                        int cantidad = int.tryParse(_controller.text) ?? 0;
+                        if (controller.validarCantidad(cantidad)) {
+                          controller.calcularBilletes(cantidad);
+                          Navigator.of(context).pop();
+                          Get.toNamed('/recibo');
+                        } else {
+                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                            content: Text('Ingrese un múltiplo de 10,000'),
+                          ));
+                        }
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.blue,
+                      ),
+                      child: Text(
+                        'Aceptar',
+                        style: TextStyle(fontSize: 16, color: Colors.white),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
 }

@@ -2,15 +2,28 @@ import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../controllers/atm_controller.dart';
+
 class PantallaRecibo extends StatelessWidget {
   final ATMController controller = Get.find();
 
   @override
   Widget build(BuildContext context) {
-    int billete10k = controller.billetesUsados?.where((billete) => billete == 10000).length ?? 0;
-    int billete20k = controller.billetesUsados?.where((billete) => billete == 20000).length ?? 0;
-    int billete50k = controller.billetesUsados?.where((billete) => billete == 50000).length ?? 0;
-    int billete100k = controller.billetesUsados?.where((billete) => billete == 100000).length ?? 0;
+    int billete10k = controller.billetesUsados
+            ?.where((billete) => billete == 10000)
+            .length ??
+        0;
+    int billete20k = controller.billetesUsados
+            ?.where((billete) => billete == 20000)
+            .length ??
+        0;
+    int billete50k = controller.billetesUsados
+            ?.where((billete) => billete == 50000)
+            .length ??
+        0;
+    int billete100k = controller.billetesUsados
+            ?.where((billete) => billete == 100000)
+            .length ??
+        0;
 
     final DateTime now = DateTime.now();
     final String formattedDate = DateFormat('yyyy-MM-dd').format(now);
@@ -25,35 +38,33 @@ class PantallaRecibo extends StatelessWidget {
               'assets/fondoapp.jpg',
               fit: BoxFit.cover,
             ),
-            Stack(
-              children:[
-                Container(
-                margin: EdgeInsets.symmetric(vertical: 70,horizontal: 0),
+            Stack(children: [
+              Container(
+                margin: EdgeInsets.symmetric(vertical: 70, horizontal: 0),
                 height: 1000,
                 decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(40),
-                  border: Border.all(
-                    width: 10,
-                    
-                    color: Colors.black38,
-                  )
-                ),
-                ) ,
-                Padding(
-                padding: const EdgeInsets.only(top: 100,left: 20,right: 20),
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(40),
+                    border: Border.all(
+                      width: 10,
+                      color: Colors.black38,
+                    )),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 100, left: 20, right: 20),
                 child: Container(
-                  
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                       AnimatedSwitcher(
+                      AnimatedSwitcher(
                         duration: Duration(seconds: 1),
                         child: Center(
                           child: Text(
                             'REGISTRO DE OPERACION RETIRO',
-                            
-                            style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.black38),
+                            style: TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black38),
                           ),
                         ),
                       ),
@@ -64,53 +75,120 @@ class PantallaRecibo extends StatelessWidget {
                             child: AnimatedSwitcher(
                               duration: Duration(seconds: 1),
                               child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
-                                      Text('Fecha: ', style: TextStyle(color: Colors.black38,fontSize: 14)),
+                                      Text('Fecha: ',
+                                          style: TextStyle(
+                                              color: Colors.black38,
+                                              fontSize: 14)),
                                       Text(''),
-                                      Text('Hora: ', style: TextStyle(color: Colors.black38,fontSize: 14)),
+                                      Text('Hora: ',
+                                          style: TextStyle(
+                                              color: Colors.black38,
+                                              fontSize: 14)),
                                       Text(''),
-                                      Text('TIPO DE OPERACION', style: TextStyle(color: Colors.black38,fontSize: 14)),
+                                      Text('TIPO DE OPERACION',
+                                          style: TextStyle(
+                                              color: Colors.black38,
+                                              fontSize: 14)),
                                       Text(''),
-                                      Text('TARJETA NO.', style: TextStyle(color: Colors.black38,fontSize: 14)),
+                                      Text('TARJETA NO.',
+                                          style: TextStyle(
+                                              color: Colors.black38,
+                                              fontSize: 14)),
                                       Text(''),
-                                      Text('POR VALOR DE', style: TextStyle(color: Colors.black38,fontSize: 14)),
-                                       Text(''),
-                                      Text('COSTO DE OPERACION', style: TextStyle(color: Colors.black38,fontSize: 14)),
+                                      Text('POR VALOR DE',
+                                          style: TextStyle(
+                                              color: Colors.black38,
+                                              fontSize: 14)),
                                       Text(''),
-                                      Text('Billetes devueltos',style: TextStyle(color: Colors.black38,fontSize: 14)),
-                                      Text('100k', style: TextStyle(color: Colors.black38,fontSize: 14)),
-                                      Text('50k', style: TextStyle(color: Colors.black38,fontSize: 14)),
-                                      Text('20k', style: TextStyle(color: Colors.black38,fontSize: 14)),
-                                      Text('10k', style: TextStyle(color: Colors.black38,fontSize: 14)),
+                                      Text('COSTO DE OPERACION',
+                                          style: TextStyle(
+                                              color: Colors.black38,
+                                              fontSize: 14)),
+                                      Text(''),
+                                      Text('Billetes devueltos',
+                                          style: TextStyle(
+                                              color: Colors.black38,
+                                              fontSize: 14)),
+                                      Text('100k',
+                                          style: TextStyle(
+                                              color: Colors.black38,
+                                              fontSize: 14)),
+                                      Text('50k',
+                                          style: TextStyle(
+                                              color: Colors.black38,
+                                              fontSize: 14)),
+                                      Text('20k',
+                                          style: TextStyle(
+                                              color: Colors.black38,
+                                              fontSize: 14)),
+                                      Text('10k',
+                                          style: TextStyle(
+                                              color: Colors.black38,
+                                              fontSize: 14)),
                                     ],
                                   ),
                                   Column(
                                     crossAxisAlignment: CrossAxisAlignment.end,
                                     children: [
-                                      Text('$formattedDate', style: TextStyle(color: Colors.black38,fontSize: 14)),
+                                      Text('$formattedDate',
+                                          style: TextStyle(
+                                              color: Colors.black38,
+                                              fontSize: 14)),
                                       Text(''),
-                                      Text('$formattedTime', style: TextStyle(color: Colors.black38,fontSize: 14)),
+                                      Text('$formattedTime',
+                                          style: TextStyle(
+                                              color: Colors.black38,
+                                              fontSize: 14)),
                                       Text(''),
-                                      Text('RETIRO', style: TextStyle(color: Colors.black38,fontSize: 14)),
+                                      Text('RETIRO',
+                                          style: TextStyle(
+                                              color: Colors.black38,
+                                              fontSize: 14)),
                                       Text(''),
                                       Text(
-                                          '${controller.numeroTarjeta != null && controller.numeroTarjeta!.length >= 4 ? '*' * (controller.numeroTarjeta!.length - 4) + controller.numeroTarjeta!.substring(controller.numeroTarjeta!.length - 4) : controller.numeroTarjeta}',
-                                          style: TextStyle(color: Colors.black38,fontSize: 14),
-                                        ),
+                                        '${controller.numeroTarjeta != null && controller.numeroTarjeta!.length >= 4 ? '*' * (controller.numeroTarjeta!.length - 4) + controller.numeroTarjeta!.substring(controller.numeroTarjeta!.length - 4) : controller.numeroTarjeta}',
+                                        style: TextStyle(
+                                            color: Colors.black38,
+                                            fontSize: 14),
+                                      ),
                                       Text(''),
-                                      Text('\$ ${controller.cantidadRetiro}', style: TextStyle(color: Colors.black38,fontSize: 14)),
+                                      Text('\$ ${controller.cantidadRetiro}',
+                                          style: TextStyle(
+                                              color: Colors.black38,
+                                              fontSize: 14)),
                                       Text(''),
-                                      Text(' \$0.00',style: TextStyle(color: Colors.black38,fontSize: 14)),
+                                      Text(' \$0.00',
+                                          style: TextStyle(
+                                              color: Colors.black38,
+                                              fontSize: 14)),
                                       Text(''),
-                                      Text('CANTIDAD',style: TextStyle(color: Colors.black38,fontSize: 14)),
-                                      Text('$billete100k', style: TextStyle(color: Colors.black38,fontSize: 14)),
-                                      Text('$billete50k', style: TextStyle(color: Colors.black38,fontSize: 14)),
-                                      Text('$billete20k', style: TextStyle(color: Colors.black38,fontSize: 14)),
-                                      Text('$billete10k', style: TextStyle(color: Colors.black38,fontSize: 14)),
+                                      Text('CANTIDAD',
+                                          style: TextStyle(
+                                              color: Colors.black38,
+                                              fontSize: 14)),
+                                      Text('$billete100k',
+                                          style: TextStyle(
+                                              color: Colors.black38,
+                                              fontSize: 14)),
+                                      Text('$billete50k',
+                                          style: TextStyle(
+                                              color: Colors.black38,
+                                              fontSize: 14)),
+                                      Text('$billete20k',
+                                          style: TextStyle(
+                                              color: Colors.black38,
+                                              fontSize: 14)),
+                                      Text('$billete10k',
+                                          style: TextStyle(
+                                              color: Colors.black38,
+                                              fontSize: 14)),
                                     ],
                                   ),
                                 ],
@@ -120,26 +198,40 @@ class PantallaRecibo extends StatelessWidget {
                         ],
                       ),
                       SizedBox(height: 20),
-                      Text('BANCOAGIL', style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.black38),),
+                      Text(
+                        'BANCOAGIL',
+                        style: TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black38),
+                      ),
                       Text(''),
-                      Text('TODA TRANSACCION ESTA SUJETA A VERIFICACION Y APROBACION', style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.black38)),
+                      Text(
+                          'TODA TRANSACCION ESTA SUJETA A VERIFICACION Y APROBACION',
+                          style: TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black38)),
                       Center(
                         child: ElevatedButton(
                           style: ButtonStyle(
-                      backgroundColor: WidgetStateProperty.all(Colors.blue),
-                      foregroundColor: WidgetStateProperty.all(Colors.white),
-                      padding: WidgetStateProperty.all(
-                          EdgeInsets.symmetric(horizontal: 20.0, vertical: 5.0)),
-                      shape: WidgetStateProperty.all(
-                        RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(22),
-                          side: BorderSide(
-                            color: Colors.white12,
-                            width: 2.0,
+                            backgroundColor:
+                                WidgetStateProperty.all(Colors.blue),
+                            foregroundColor:
+                                WidgetStateProperty.all(Colors.white),
+                            padding: WidgetStateProperty.all(
+                                EdgeInsets.symmetric(
+                                    horizontal: 20.0, vertical: 5.0)),
+                            shape: WidgetStateProperty.all(
+                              RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(22),
+                                side: BorderSide(
+                                  color: Colors.white12,
+                                  width: 2.0,
+                                ),
+                              ),
+                            ),
                           ),
-                        ),
-                      ),
-                    ),
                           onPressed: () => Get.offAllNamed('/'),
                           child: SizedBox(
                             width: 90,
@@ -149,10 +241,7 @@ class PantallaRecibo extends StatelessWidget {
                                 SizedBox(
                                   width: 10,
                                 ),
-                                Icon(
-                                  
-                                  Icons.cancel
-                                )
+                                Icon(Icons.cancel)
                               ],
                             ),
                           ),
@@ -162,13 +251,10 @@ class PantallaRecibo extends StatelessWidget {
                   ),
                 ),
               ),
-              ]
-            ),
+            ]),
           ],
         ),
       ),
-      
     );
-    
   }
 }

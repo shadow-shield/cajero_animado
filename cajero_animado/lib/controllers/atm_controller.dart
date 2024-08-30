@@ -8,15 +8,15 @@ class ATMController extends GetxController {
   String? clave;
   int? cantidadRetiro;
   List<int>? billetesUsados;
-
-  int? codigoTemporal; // Añadido para almacenar el código temporal
-  int? codigoEstatico; // Añadido para almacenar el código estático
+  int intentos = 0;
+  int? codigoTemporal;
+  int? codigoEstatico;
 
   void autenticar(String tarjeta, String clave) {
     numeroTarjeta = tarjeta;
     this.clave = clave;
     update();
-    // Establece el código estático si la tarjeta es la esperada
+
     if (numeroTarjeta == '11234567890') {
       codigoEstatico = atmModel.obtenerCodigoEstatico(numeroTarjeta!);
       update();
@@ -28,9 +28,9 @@ class ATMController extends GetxController {
   }
 
   void generarCodigoTemporal() {
-    if (numeroTarjeta == '01234567890') { // Genera código solo para esta cuenta
+    if (numeroTarjeta == '01234567890') {
       atmModel.generarCodigoTemporal();
-      codigoTemporal = atmModel.codigoTemporal; // Almacena el código en el controlador
+      codigoTemporal = atmModel.codigoTemporal;
       update();
     }
   }
@@ -39,22 +39,49 @@ class ATMController extends GetxController {
     return cantidad > 0 && cantidad % 10000 == 0;
   }
 
-  bool verificarCodigoTemporal(int codigo) {
-    if (numeroTarjeta == '11234567890') {
-      
-      return true;
+  bool verificarCodigoTemporal(int codigoTemporal) {
+    if (intentos >= 3) {
+      Get.snackbar(
+          'Cuenta Bloqueada', 'Has superado el número de intentos permitidos.');
+
+      Get.offAllNamed('/');
+      return false;
     }
-    return atmModel.verificarCodigoTemporal(codigo);
+
+    if (atmModel.codigoTemporal == codigoTemporal) {
+      intentos = 0;
+      return true;
+    } else {
+      intentos++;
+      Get.snackbar(
+          'Error', 'Código Temporal Incorrecto. Intento ${intentos}/3');
+      return false;
+    }
   }
 
   bool verificarCodigoFijo(int codigoFijo) {
-    
-    return atmModel.codigofijo == codigoFijo;
+    if (intentos >= 3) {
+      Get.snackbar(
+          'Cuenta Bloqueada', 'Has superado el número de intentos permitidos.');
+
+      Get.offAllNamed('/');
+      return false;
+    }
+
+    if (atmModel.codigofijo == codigoFijo) {
+      intentos = 0;
+      return true;
+    } else {
+      intentos++;
+      Get.snackbar(
+          'Error', 'Código Fijo Incorrecto. Intento restantes ${intentos}/3');
+      return false;
+    }
   }
 
   void calcularBilletes(int cantidad) {
     cantidadRetiro = cantidad;
     billetesUsados = atmModel.calcularBilletesUsados(cantidad);
-    billetesUsados!.sort((a, b) => b.compareTo(a)); 
+    billetesUsados!.sort((a, b) => b.compareTo(a));
   }
 }

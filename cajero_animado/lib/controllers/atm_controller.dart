@@ -11,8 +11,7 @@ class ATMController extends GetxController {
   int intentos = 0;
   int? codigoTemporal;
   int? codigoEstatico;
-  Map<String, int> intentosPorCuenta =
-      {}; // Mapa para contar intentos por cuenta
+  Map<String, int> intentosPorCuenta ={}; 
   Map<String, bool> cuentasBloqueadas = {};
 
   void autenticar(String tarjeta, String clave) {
@@ -45,27 +44,25 @@ class ATMController extends GetxController {
   bool verificarCodigoTemporal(String cuenta, int codigoTemporal) {
     if (cuentasBloqueadas[cuenta] == true) {
       Get.snackbar('Cuenta Bloqueada', 'La cuenta ya está bloqueada.');
-      // Redirigir a la pantalla de inicio
       Get.offAllNamed('/');
       return false;
     }
 
     if (!intentosPorCuenta.containsKey(cuenta)) {
-      intentosPorCuenta[cuenta] = 0; // Inicializar intentos si no existe
+      intentosPorCuenta[cuenta] = 0; 
     }
 
     if (intentosPorCuenta[cuenta]! >= 3) {
       cuentasBloqueadas[cuenta] = true;
       Get.snackbar(
           'Cuenta Bloqueada', 'Has superado el número de intentos permitidos.');
-      // Redirigir a la pantalla de inicio
       Get.offAllNamed('/');
       return false;
     }
 
     if (atmModel.codigoTemporal == codigoTemporal) {
       intentosPorCuenta[cuenta] =
-          0; // Resetea los intentos si el código es correcto
+          0;
       return true;
     } else {
       intentosPorCuenta[cuenta] = (intentosPorCuenta[cuenta] ?? 0) + 1;
@@ -78,27 +75,26 @@ class ATMController extends GetxController {
   bool verificarCodigoFijo(String cuenta, int codigoFijo) {
     if (cuentasBloqueadas[cuenta] == true) {
       Get.snackbar('Cuenta Bloqueada', 'La cuenta ya está bloqueada.');
-      // Redirigir a la pantalla de inicio
       Get.offAllNamed('/');
       return false;
     }
 
     if (!intentosPorCuenta.containsKey(cuenta)) {
-      intentosPorCuenta[cuenta] = 0; // Inicializar intentos si no existe
+      intentosPorCuenta[cuenta] = 0; 
     }
 
     if (intentosPorCuenta[cuenta]! >= 3) {
       cuentasBloqueadas[cuenta] = true;
       Get.snackbar(
           'Cuenta Bloqueada', 'Has superado el número de intentos permitidos.');
-      // Redirigir a la pantalla de inicio
+     
       Get.offAllNamed('/');
       return false;
     }
 
     if (atmModel.codigofijo == codigoFijo) {
       intentosPorCuenta[cuenta] =
-          0; // Resetea los intentos si el código es correcto
+          0; 
       return true;
     } else {
       intentosPorCuenta[cuenta] = (intentosPorCuenta[cuenta] ?? 0) + 1;

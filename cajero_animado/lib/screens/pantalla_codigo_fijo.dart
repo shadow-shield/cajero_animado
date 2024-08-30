@@ -1,3 +1,4 @@
+import 'package:cajero_animado/screens/pantalla_recibo.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../controllers/atm_controller.dart';
@@ -94,7 +95,28 @@ class PantallaCodigoFijo extends StatelessWidget {
                         '11234567890'; 
                     if (controller.verificarCodigoFijo(
                         cuenta, int.tryParse(codigoController.text) ?? 0)) {
-                      Get.toNamed('/recibo');
+                      Navigator.push(
+                        context,
+                        PageRouteBuilder(
+                          pageBuilder: (context, animation, secondaryAnimation) =>
+                              PantallaRecibo(),
+                          transitionsBuilder:
+                              (context, animation, secondaryAnimation, child) {
+                            const begin = Offset(1.0, 0.0); 
+                            const end = Offset(0.0, 0.0);
+                            const curve = Curves.easeInOut;
+
+                            var tween =
+                                Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+                            var offsetAnimation = animation.drive(tween);
+
+                            return SlideTransition(
+                              position: offsetAnimation,
+                              child: child,
+                            );
+                          },
+                        ),
+                      );
                     }
                   },
                   child: SizedBox(

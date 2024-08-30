@@ -1,4 +1,5 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
+import 'package:cajero_animado/screens/pantalla_codigo.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../controllers/atm_controller.dart';
@@ -72,11 +73,34 @@ class PantallaPrincipal extends StatelessWidget {
                     style: ButtonStyle(
                       backgroundColor: WidgetStateProperty.all(Colors.white),
                       foregroundColor: WidgetStateProperty.all(Colors.blue),
-                      padding: WidgetStateProperty.all(EdgeInsets.symmetric(
-                          horizontal: 20.0, vertical: 5.0)),
-                      
+                      padding: WidgetStateProperty.all(
+                        EdgeInsets.symmetric(horizontal: 20.0, vertical: 5.0),
+                      ),
                     ),
-                    onPressed: () => Get.toNamed('/codigo'),
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        PageRouteBuilder(
+                          pageBuilder: (context, animation, secondaryAnimation) =>
+                              PantallaCodigo(),
+                          transitionsBuilder:
+                              (context, animation, secondaryAnimation, child) {
+                            const begin = Offset(1.0, 0.0); 
+                            const end = Offset(0.0, 0.0);
+                            const curve = Curves.easeInOut;
+
+                            var tween =
+                                Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+                            var offsetAnimation = animation.drive(tween);
+
+                            return SlideTransition(
+                              position: offsetAnimation,
+                              child: child,
+                            );
+                          },
+                        ),
+                      );
+                    },
                     label: Text('Comenzar'),
                     icon: Image.asset(
                       'assets/next.gif',
@@ -92,3 +116,5 @@ class PantallaPrincipal extends StatelessWidget {
     );
   }
 }
+
+

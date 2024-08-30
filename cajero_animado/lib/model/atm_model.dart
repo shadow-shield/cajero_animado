@@ -3,7 +3,7 @@ class ATMModel {
     '11234567890': '1234',
     '01234567890': '4321',
   };
-
+  
   final List<int> billetes = [10000, 20000, 50000, 100000];
   Map<String, int> intentosClave = {};
   int? codigoTemporal;

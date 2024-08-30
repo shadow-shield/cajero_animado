@@ -11,6 +11,9 @@ class ATMController extends GetxController {
   int intentos = 0;
   int? codigoTemporal;
   int? codigoEstatico;
+  Map<String, int> intentosPorCuenta =
+      {}; // Mapa para contar intentos por cuenta
+  Map<String, bool> cuentasBloqueadas = {};
 
   void autenticar(String tarjeta, String clave) {
     numeroTarjeta = tarjeta;
@@ -39,42 +42,68 @@ class ATMController extends GetxController {
     return cantidad > 0 && cantidad % 10000 == 0;
   }
 
-  bool verificarCodigoTemporal(int codigoTemporal) {
-    if (intentos >= 3) {
+  bool verificarCodigoTemporal(String cuenta, int codigoTemporal) {
+    if (cuentasBloqueadas[cuenta] == true) {
+      Get.snackbar('Cuenta Bloqueada', 'La cuenta ya está bloqueada.');
+      // Redirigir a la pantalla de inicio
+      Get.offAllNamed('/');
+      return false;
+    }
+
+    if (!intentosPorCuenta.containsKey(cuenta)) {
+      intentosPorCuenta[cuenta] = 0; // Inicializar intentos si no existe
+    }
+
+    if (intentosPorCuenta[cuenta]! >= 3) {
+      cuentasBloqueadas[cuenta] = true;
       Get.snackbar(
           'Cuenta Bloqueada', 'Has superado el número de intentos permitidos.');
-
+      // Redirigir a la pantalla de inicio
       Get.offAllNamed('/');
       return false;
     }
 
     if (atmModel.codigoTemporal == codigoTemporal) {
-      intentos = 0;
+      intentosPorCuenta[cuenta] =
+          0; // Resetea los intentos si el código es correcto
       return true;
     } else {
-      intentos++;
-      Get.snackbar(
-          'Error', 'Código Temporal Incorrecto. Intento ${intentos}/3');
+      intentosPorCuenta[cuenta] = (intentosPorCuenta[cuenta] ?? 0) + 1;
+      Get.snackbar('Error',
+          'Código Temporal Incorrecto. Intento ${intentosPorCuenta[cuenta]}/3');
       return false;
     }
   }
 
-  bool verificarCodigoFijo(int codigoFijo) {
-    if (intentos >= 3) {
+  bool verificarCodigoFijo(String cuenta, int codigoFijo) {
+    if (cuentasBloqueadas[cuenta] == true) {
+      Get.snackbar('Cuenta Bloqueada', 'La cuenta ya está bloqueada.');
+      // Redirigir a la pantalla de inicio
+      Get.offAllNamed('/');
+      return false;
+    }
+
+    if (!intentosPorCuenta.containsKey(cuenta)) {
+      intentosPorCuenta[cuenta] = 0; // Inicializar intentos si no existe
+    }
+
+    if (intentosPorCuenta[cuenta]! >= 3) {
+      cuentasBloqueadas[cuenta] = true;
       Get.snackbar(
           'Cuenta Bloqueada', 'Has superado el número de intentos permitidos.');
-
+      // Redirigir a la pantalla de inicio
       Get.offAllNamed('/');
       return false;
     }
 
     if (atmModel.codigofijo == codigoFijo) {
-      intentos = 0;
+      intentosPorCuenta[cuenta] =
+          0; // Resetea los intentos si el código es correcto
       return true;
     } else {
-      intentos++;
-      Get.snackbar(
-          'Error', 'Código Fijo Incorrecto. Intento restantes ${intentos}/3');
+      intentosPorCuenta[cuenta] = (intentosPorCuenta[cuenta] ?? 0) + 1;
+      Get.snackbar('Error',
+          'Código Fijo Incorrecto. Intento ${intentosPorCuenta[cuenta]}/3');
       return false;
     }
   }

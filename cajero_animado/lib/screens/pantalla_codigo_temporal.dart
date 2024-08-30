@@ -90,11 +90,11 @@ class PantallaCodigoTemporal extends StatelessWidget {
                     backgroundColor: MaterialStateProperty.all(Colors.white),
                   ),
                   onPressed: () {
+                    String cuenta =
+                        '01234567890'; // Reemplaza con el identificador de la cuenta actual
                     if (controller.verificarCodigoTemporal(
-                        int.tryParse(codigoController.text) ?? 0)) {
+                        cuenta, int.tryParse(codigoController.text) ?? 0)) {
                       Get.toNamed('/retiro');
-                    } else if (controller.intentos >= 3) {
-                      Get.offAllNamed('/');
                     }
                   },
                   child: SizedBox(

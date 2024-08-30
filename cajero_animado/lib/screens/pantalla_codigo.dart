@@ -118,10 +118,10 @@ class PantallaCodigo extends StatelessWidget {
             
                       if (controller.verificarAutenticacion()) {
                         if (tarjetaController.text == '11234567890') {
-                          Get.toNamed('/codigo-fijo');
+                          Get.toNamed('/retiro');
                         } else if (tarjetaController.text == '01234567890') {
                           controller.generarCodigoTemporal();
-                          Get.toNamed('/codigo-temporal');
+                          Get.toNamed('/retiro-temporal');
                         } else {
                           Get.snackbar('Error', 'Número de cuenta no reconocido',
                               backgroundColor: Colors.white,

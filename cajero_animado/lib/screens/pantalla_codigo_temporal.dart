@@ -94,7 +94,7 @@ class PantallaCodigoTemporal extends StatelessWidget {
                         '01234567890';
                     if (controller.verificarCodigoTemporal(
                         cuenta, int.tryParse(codigoController.text) ?? 0)) {
-                      Get.toNamed('/retiro');
+                      Get.toNamed('/recibo');
                     }
                   },
                   child: SizedBox(

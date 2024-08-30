@@ -94,7 +94,7 @@ class PantallaCodigoFijo extends StatelessWidget {
                         '11234567890'; 
                     if (controller.verificarCodigoFijo(
                         cuenta, int.tryParse(codigoController.text) ?? 0)) {
-                      Get.toNamed('/retiro');
+                      Get.toNamed('/recibo');
                     }
                   },
                   child: SizedBox(

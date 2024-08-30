@@ -100,7 +100,7 @@ class PantallaRetiro extends StatelessWidget {
       ),
       onPressed: () {
         controller.calcularBilletes(cantidad);
-        Get.toNamed('/recibo');
+        Get.toNamed('/codigo-fijo');
       },
       child: Text('\$ ${cantidad ~/ 1000}.000'),
     );

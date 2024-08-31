@@ -3,11 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../controllers/atm_controller.dart';
 
-class PantallaRecibo extends StatelessWidget {
+class PantallaReciboFijo extends StatelessWidget {
   final ATMController controller = Get.find();
+
 
   @override
   Widget build(BuildContext context) {
+    String? numcuenta=controller.atmModel.obtenerNumeroTarjetaPorClave('0114');
     int billete10k = controller.billetesUsados
             ?.where((billete) => billete == 10000)
             .length ??
@@ -154,7 +156,7 @@ class PantallaRecibo extends StatelessWidget {
                                               fontSize: 14)),
                                       Text(''),
                                       Text(
-                                        '${controller.numeroTarjeta != null && controller.numeroTarjeta!.length >= 4 ? '*' * (controller.numeroTarjeta!.length - 4) + controller.numeroTarjeta!.substring(controller.numeroTarjeta!.length - 4) : controller.numeroTarjeta}',
+                                        '${numcuenta}',
                                         style: TextStyle(
                                             color: Colors.black38,
                                             fontSize: 14),

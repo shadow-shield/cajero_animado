@@ -24,7 +24,6 @@ class PantallaCodigo extends StatelessWidget {
             ),
           ),
           SingleChildScrollView(
-            
             child: Padding(
               padding: const EdgeInsets.only(top: 100),
               child: Column(
@@ -61,6 +60,9 @@ class PantallaCodigo extends StatelessWidget {
                     width: 350,
                     child: TextField(
                       controller: tarjetaController,
+                      onChanged: (value) {
+                        controller.autenticar(value, controller.clave ?? '');
+                      },
                       decoration: InputDecoration(
                         border: UnderlineInputBorder(
                           borderRadius: BorderRadius.circular(50),
@@ -118,62 +120,70 @@ class PantallaCodigo extends StatelessWidget {
                     onPressed: () {
                       controller.autenticar(
                           tarjetaController.text, claveController.text);
-            
+
                       if (controller.verificarAutenticacion()) {
-                        if (tarjetaController.text == '11234567890') {
+                        if (tarjetaController.text ==
+                            controller.atmModel
+                                .obtenerNumeroTarjetaPorClave('0114')) {
                           Navigator.push(
-                        context,
-                        PageRouteBuilder(
-                          pageBuilder: (context, animation, secondaryAnimation) =>
-                              PantallaRetiro(),
-                          transitionsBuilder:
-                              (context, animation, secondaryAnimation, child) {
-                            const begin = Offset(1.0, 0.0); 
-                            const end = Offset(0.0, 0.0);
-                            const curve = Curves.easeInOut;
+                            context,
+                            PageRouteBuilder(
+                              pageBuilder:
+                                  (context, animation, secondaryAnimation) =>
+                                      PantallaRetiro(),
+                              transitionsBuilder: (context, animation,
+                                  secondaryAnimation, child) {
+                                const begin = Offset(1.0, 0.0);
+                                const end = Offset(0.0, 0.0);
+                                const curve = Curves.easeInOut;
 
-                            var tween =
-                                Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
-                            var offsetAnimation = animation.drive(tween);
+                                var tween = Tween(begin: begin, end: end)
+                                    .chain(CurveTween(curve: curve));
+                                var offsetAnimation = animation.drive(tween);
 
-                            return SlideTransition(
-                              position: offsetAnimation,
-                              child: child,
-                            );
-                          },
-                        ),
-                      );
-                        } else if (tarjetaController.text == '01234567890') {
+                                return SlideTransition(
+                                  position: offsetAnimation,
+                                  child: child,
+                                );
+                              },
+                            ),
+                          );
+                        } else if (tarjetaController.text ==
+                            controller.atmModel
+                                .obtenerNumeroTarjetaPorClave('0113')) {
                           controller.generarCodigoTemporal();
                           Navigator.push(
-                        context,
-                        PageRouteBuilder(
-                          pageBuilder: (context, animation, secondaryAnimation) =>
-                              PantallaRetiroTemporal(),
-                          transitionsBuilder:
-                              (context, animation, secondaryAnimation, child) {
-                            const begin = Offset(1.0, 0.0); 
-                            const end = Offset(0.0, 0.0);
-                            const curve = Curves.easeInOut;
+                            context,
+                            PageRouteBuilder(
+                              pageBuilder:
+                                  (context, animation, secondaryAnimation) =>
+                                      PantallaRetiroTemporal(),
+                              transitionsBuilder: (context, animation,
+                                  secondaryAnimation, child) {
+                                const begin = Offset(1.0, 0.0);
+                                const end = Offset(0.0, 0.0);
+                                const curve = Curves.easeInOut;
 
-                            var tween =
-                                Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
-                            var offsetAnimation = animation.drive(tween);
+                                var tween = Tween(begin: begin, end: end)
+                                    .chain(CurveTween(curve: curve));
+                                var offsetAnimation = animation.drive(tween);
 
-                            return SlideTransition(
-                              position: offsetAnimation,
-                              child: child,
-                            );
-                          },
-                        ),
-                      );
+                                return SlideTransition(
+                                  position: offsetAnimation,
+                                  child: child,
+                                );
+                              },
+                            ),
+                          );
                         } else {
-                          Get.snackbar('Error', 'Número de cuenta no reconocido',
+                          Get.snackbar(
+                              'Error', 'Número de cuenta no reconocido',
                               backgroundColor: Colors.white,
                               colorText: Colors.blue);
                         }
                       } else {
-                        Get.snackbar('Error', 'Tarjeta o clave segura incorrecta',
+                        Get.snackbar(
+                            'Error', 'Tarjeta o clave segura incorrecta',
                             backgroundColor: Colors.white,
                             colorText: Colors.blue);
                       }
@@ -205,7 +215,9 @@ class PantallaCodigo extends StatelessWidget {
                       ),
                     ),
                   ),
-                  SizedBox(height: 50,),
+                  SizedBox(
+                    height: 50,
+                  ),
                   Image.asset('assets/personas-mobile.png')
                 ],
               ),

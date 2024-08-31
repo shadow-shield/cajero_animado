@@ -1,4 +1,4 @@
-import 'package:cajero_animado/screens/pantalla_recibo.dart';
+import 'package:cajero_animado/screens/pantalla_recibo_fijo.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../controllers/atm_controller.dart';
@@ -92,14 +92,14 @@ class PantallaCodigoFijo extends StatelessWidget {
                   ),
                   onPressed: () {
                     String cuenta =
-                        '11234567890'; 
+                        controller.atmModel.obtenerNumeroTarjetaPorClave('0114'); 
                     if (controller.verificarCodigoFijo(
                         cuenta, int.tryParse(codigoController.text) ?? 0)) {
                       Navigator.push(
                         context,
                         PageRouteBuilder(
                           pageBuilder: (context, animation, secondaryAnimation) =>
-                              PantallaRecibo(),
+                              PantallaReciboFijo(),
                           transitionsBuilder:
                               (context, animation, secondaryAnimation, child) {
                             const begin = Offset(1.0, 0.0); 

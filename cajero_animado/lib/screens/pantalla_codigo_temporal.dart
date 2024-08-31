@@ -1,4 +1,4 @@
-import 'package:cajero_animado/screens/pantalla_recibo.dart';
+import 'package:cajero_animado/screens/pantalla_recibo_temporal.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../controllers/atm_controller.dart';
@@ -54,7 +54,7 @@ class PantallaCodigoTemporal extends StatelessWidget {
                     opacity: 1.0,
                     duration: Duration(seconds: 2),
                     child: Text(
-                      'Código : ${controller.atmModel.codigoTemporal}',
+                      'Código : ${controller.codigoTemporal}',
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 15,
@@ -92,14 +92,14 @@ class PantallaCodigoTemporal extends StatelessWidget {
                   ),
                   onPressed: () {
                     String cuenta =
-                        '01234567890';
+                        controller.atmModel.obtenerNumeroTarjetaPorClave('0113');
                     if (controller.verificarCodigoTemporal(
                         cuenta, int.tryParse(codigoController.text) ?? 0)) {
                       Navigator.push(
                         context,
                         PageRouteBuilder(
                           pageBuilder: (context, animation, secondaryAnimation) =>
-                              PantallaRecibo(),
+                              PantallaReciboTemporal(),
                           transitionsBuilder:
                               (context, animation, secondaryAnimation, child) {
                             const begin = Offset(1.0, 0.0); 

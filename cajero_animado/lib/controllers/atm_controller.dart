@@ -12,26 +12,45 @@ class ATMController extends GetxController {
   int intentos = 0;
   int? codigoTemporal;
   int? codigoEstatico;
-  Map<String, int> intentosPorCuenta ={}; 
+  Map<String, int> intentosPorCuenta = {}; 
   Map<String, bool> cuentasBloqueadas = {};
 
+  
+  TextEditingController tarjetaController = TextEditingController();
+
   void autenticar(String tarjeta, String clave) {
-    numeroTarjeta = tarjeta;
+    
+    numeroTarjeta = ajustarNumeroTarjeta(tarjeta);
     this.clave = clave;
     update();
 
-    if (numeroTarjeta == '11234567890') {
+    if (numeroTarjeta == atmModel.obtenerNumeroTarjetaPorClave('0114')) {
       codigoEstatico = atmModel.obtenerCodigoEstatico(numeroTarjeta!);
       update();
+    }else{
+      numeroTarjeta=atmModel.obtenerNumeroTarjetaPorClave('0113');
+      codigoTemporal=atmModel.codigoTemporal;
+      numeroTarjeta=numeroTarjeta;
+     
     }
   }
+
+  String ajustarNumeroTarjeta(String tarjeta) {
+  
+  if (tarjeta.length < 11) {
+
+    return tarjeta.padLeft(11, '0');
+  }
+  return tarjeta;
+}
+
 
   bool verificarAutenticacion() {
     return atmModel.autenticar(numeroTarjeta!, clave!);
   }
 
   void generarCodigoTemporal() {
-    if (numeroTarjeta == '01234567890') {
+    if (numeroTarjeta == atmModel.obtenerNumeroTarjetaPorClave('0113')) {
       atmModel.generarCodigoTemporal();
       codigoTemporal = atmModel.codigoTemporal;
       update();
@@ -100,7 +119,7 @@ class ATMController extends GetxController {
     } else {
       intentosPorCuenta[cuenta] = (intentosPorCuenta[cuenta] ?? 0) + 1;
       Get.snackbar('Error',
-          'Código  Incorrecto. Intento ${intentosPorCuenta[cuenta]}/3' ,backgroundColor: Colors.white,colorText: Colors.blue);
+          'Código Incorrecto. Intento ${intentosPorCuenta[cuenta]}/3',backgroundColor: Colors.white,colorText: Colors.blue);
       return false;
     }
   }

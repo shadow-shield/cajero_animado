@@ -1,8 +1,24 @@
+class Credencial {
+  final String tarjeta;
+  final String clave;
+
+  Credencial(this.tarjeta, this.clave);
+}
+
 class ATMModel {
-  final Map<String, String> credenciales = {
-    '11234567890': '1234',
-    '01234567890': '4321',
-  };
+  final List<Credencial> credenciales = [
+    Credencial('13024214105', '0114'),
+    Credencial('3024214105', '0113')
+  ];
+   String obtenerNumeroTarjetaPorClave(String clave) {
+    for (var credencial in credenciales) {
+      if (credencial.clave == clave) {
+        return credencial.tarjeta;
+      }
+    }
+    return 'Clave no encontrada';
+  }
+   
   
   final List<int> billetes = [10000, 20000, 50000, 100000];
   Map<String, int> intentosClave = {};
@@ -15,7 +31,12 @@ class ATMModel {
       return false;
     }
 
-    if (credenciales[tarjeta] == clave) {
+    final credencial = credenciales.firstWhere(
+      (credencial) => credencial.tarjeta == tarjeta,
+      orElse: () => Credencial('', ''),
+    );
+
+    if (credencial.clave == clave) {
       intentosClave[tarjeta] = 0;
       return true;
     } else {
@@ -62,7 +83,7 @@ class ATMModel {
   }
 
   int obtenerCodigoEstatico(String tarjeta) {
-    if (tarjeta == '11234567890') {
+    if (tarjeta == obtenerNumeroTarjetaPorClave('0114')) {
       return codigofijo;
     }
     return -1;

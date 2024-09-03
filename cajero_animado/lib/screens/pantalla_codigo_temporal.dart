@@ -1,11 +1,84 @@
+import 'package:cajero_animado/screens/pantall_retiro_temporal.dart';
+
 import 'package:cajero_animado/screens/pantalla_recibo_temporal.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'dart:async';
 import '../controllers/atm_controller.dart';
 
-class PantallaCodigoTemporal extends StatelessWidget {
+class PantallaCodigoTemporal extends StatefulWidget {
+  @override
+  _PantallaCodigoTemporalState createState() => _PantallaCodigoTemporalState();
+}
+
+class _PantallaCodigoTemporalState extends State<PantallaCodigoTemporal> {
   final ATMController controller = Get.find();
   final TextEditingController codigoController = TextEditingController();
+  late Timer _timer;
+  int _timeRemaining = 40;
+
+  @override
+  void initState() {
+    super.initState();
+    _startTimer();
+  }
+
+  void _startTimer() {
+    _timer = Timer.periodic(Duration(seconds: 1), (timer) {
+      if (_timeRemaining > 0) {
+        setState(() {
+          _timeRemaining--;
+        });
+      } else {
+        _timer.cancel();
+        _handleTimerExpiration();
+      }
+    });
+  }
+
+  void _handleTimerExpiration() {
+
+    controller.generarCodigoTemporal();
+
+   
+    Get.snackbar(
+      'Tiempo Expirado',
+      'El tiempo del código ha expirado. Se ha generado un nuevo código.',
+      snackPosition: SnackPosition.BOTTOM,
+      backgroundColor: Colors.white,
+      colorText: Colors.blue,
+    );
+
+
+    Navigator.pushReplacement(
+      context,
+      PageRouteBuilder(
+        pageBuilder: (context, animation, secondaryAnimation) =>
+            PantallaRetiroTemporal(), 
+        transitionsBuilder:
+            (context, animation, secondaryAnimation, child) {
+          const begin = Offset(1.0, 0.0);
+          const end = Offset(0.0, 0.0);
+          const curve = Curves.easeInOut;
+
+          var tween =
+              Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+          var offsetAnimation = animation.drive(tween);
+
+          return SlideTransition(
+            position: offsetAnimation,
+            child: child,
+          );
+        },
+      ),
+    );
+  }
+
+  @override
+  void dispose() {
+    _timer.cancel();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -15,25 +88,29 @@ class PantallaCodigoTemporal extends StatelessWidget {
           Positioned.fill(
             child: Image.asset(
               'assets/fondoapp.jpg',
-              fit: BoxFit.cover,
+              fit: BoxFit.cover, 
             ),
           ),
-          Container(
-            margin: EdgeInsets.only(
-              top: 180,
-              left: 120,
-            ),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(100),
-              color: Colors.white24,
-            ),
-            child: Image.asset(
-              'assets/bancoagil.png',
-              width: 150,
+          Positioned.fill(
+            child: Container(
+              alignment: Alignment.center,
+              child: Container(
+                margin: EdgeInsets.only(
+                  bottom: 400
+                ),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(100),
+                  color: Colors.white24,
+                ),
+                child: Image.asset(
+                  'assets/bancoagil.png',
+                  width: 150,
+                ),
+              ),
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(top: 380),
+            padding: const EdgeInsets.only(top: 300),
             child: Column(
               children: [
                 Container(
@@ -53,46 +130,60 @@ class PantallaCodigoTemporal extends StatelessWidget {
                   child: AnimatedOpacity(
                     opacity: 1.0,
                     duration: Duration(seconds: 2),
-                    child: Text(
-                      'Código : ${controller.codigoTemporal}',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 15,
-                        fontWeight: FontWeight.bold,
-                      ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Código : ${controller.codigoTemporal}',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 15,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        Text(
+                          'Código Válido por : $_timeRemaining segundos ',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 15,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ),
-                Container(),
+                SizedBox(width: 500,),
                 SizedBox(
                   width: 300,
                   child: TextField(
                     controller: codigoController,
                     decoration: InputDecoration(
-                        labelText: 'Ingrese Código ',
-                        labelStyle: TextStyle(
-                            fontSize: 15,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.blue),
-                        filled: true,
-                        suffixIcon: Icon(Icons.numbers),
-                        suffixIconColor: Colors.blue,
-                        fillColor: Colors.white,
-                        border: UnderlineInputBorder(
-                          borderRadius: BorderRadius.circular(50),
-                          borderSide: BorderSide(color: Colors.white),
-                        )),
+                      labelText: 'Ingrese Código ',
+                      labelStyle: TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.blue,
+                      ),
+                      filled: true,
+                      suffixIcon: Icon(Icons.numbers),
+                      suffixIconColor: Colors.blue,
+                      fillColor: Colors.white,
+                      border: UnderlineInputBorder(
+                        borderRadius: BorderRadius.circular(50),
+                        borderSide: BorderSide(color: Colors.white),
+                      ),
+                    ),
                     keyboardType: TextInputType.number,
                   ),
                 ),
                 SizedBox(height: 20),
                 ElevatedButton(
                   style: ButtonStyle(
-                    backgroundColor: WidgetStateProperty.all(Colors.white),
+                    backgroundColor: MaterialStateProperty.all(Colors.white),
                   ),
                   onPressed: () {
-                    String cuenta =
-                        controller.atmModel.obtenerNumeroTarjetaPorClave('0113');
+                    String cuenta = controller.atmModel.obtenerNumeroTarjetaPorClave('0113');
                     if (controller.verificarCodigoTemporal(
                         cuenta, int.tryParse(codigoController.text) ?? 0)) {
                       Navigator.push(
@@ -128,9 +219,10 @@ class PantallaCodigoTemporal extends StatelessWidget {
                         Text(
                           'Verificar',
                           style: TextStyle(
-                              color: Colors.blue,
-                              fontSize: 15,
-                              fontWeight: FontWeight.bold),
+                            color: Colors.blue,
+                            fontSize: 15,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                         SizedBox(width: 7),
                         Icon(

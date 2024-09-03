@@ -1,6 +1,7 @@
 import 'package:cajero_animado/screens/pantall_retiro_temporal.dart';
 import 'package:cajero_animado/screens/pantalla_codigo_fijo.dart';
 import 'package:cajero_animado/screens/pantalla_recibo_fijo.dart';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'screens/pantalla_principal.dart';
@@ -26,7 +27,6 @@ class CajeroApp extends StatelessWidget {
         '/codigo-temporal': (context) => PantallaCodigoTemporal(),
         '/codigo-fijo': (context) => PantallaCodigoFijo(),
         '/retiro-temporal': (context) => PantallaRetiroTemporal(),
-
         '/retiro': (context) => PantallaRetiro(),
         '/recibo': (context) => PantallaReciboTemporal(),
         '/recibofijo': (context) => PantallaReciboFijo()

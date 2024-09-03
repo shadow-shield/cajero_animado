@@ -8,9 +8,11 @@ class Credencial {
 class ATMModel {
   final List<Credencial> credenciales = [
     Credencial('13024214105', '0114'),
-    Credencial('3024214105', '0113')
+    Credencial('3024214105', '0113'),
+    Credencial('301578', '0115')
   ];
-   String obtenerNumeroTarjetaPorClave(String clave) {
+
+  String obtenerNumeroTarjetaPorClave(String clave) {
     for (var credencial in credenciales) {
       if (credencial.clave == clave) {
         return credencial.tarjeta;
@@ -18,7 +20,6 @@ class ATMModel {
     }
     return 'Clave no encontrada';
   }
-   
   
   final List<int> billetes = [10000, 20000, 50000, 100000];
   Map<String, int> intentosClave = {};
@@ -56,7 +57,7 @@ class ATMModel {
 
   bool verificarCodigoTemporal(int codigoIngresado) {
     final int tiempoActual = DateTime.now().millisecondsSinceEpoch;
-    if (codigoTemporal == null || tiempoActual - tiempocodigo > 120000) {
+    if (codigoTemporal == null || tiempoActual - tiempocodigo > 40000) { 
       return false;
     }
     return codigoIngresado == codigoTemporal;

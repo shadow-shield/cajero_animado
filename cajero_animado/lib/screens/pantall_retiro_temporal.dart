@@ -94,12 +94,13 @@ class PantallaRetiroTemporal extends StatelessWidget {
   }
 
   Widget _botonCantidad(BuildContext context, int cantidad, Color? color) {
-    return ElevatedButton(
-      style: ElevatedButton.styleFrom(
-        foregroundColor: Colors.white,
-        backgroundColor: color,
-      ),
-      onPressed: () {
+  return ElevatedButton(
+    style: ElevatedButton.styleFrom(
+      foregroundColor: Colors.white,
+      backgroundColor: color,
+    ),
+    onPressed: () {
+      if (!controller.verificarCuentaBloqueada(controller.numeroTarjeta!)) {
         controller.calcularBilletes(cantidad);
         Navigator.push(
           context,
@@ -123,10 +124,12 @@ class PantallaRetiroTemporal extends StatelessWidget {
             },
           ),
         );
-      },
-      child: Text('\$ ${cantidad ~/ 1000}.000'),
-    );
-  }
+      }
+    },
+    child: Text('\$ ${cantidad ~/ 1000}.000'),
+  );
+}
+
 
   void _mostrarDialogoOtroValor(BuildContext context) {
     final TextEditingController _controller = TextEditingController();
@@ -190,7 +193,7 @@ class PantallaRetiroTemporal extends StatelessWidget {
                           Get.toNamed('/recibo');
                         } else {
                           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                            content: Text('Ingrese un múltiplo de 10,000'),
+                            content: Text('Ingrese un múltiplo de 10.000'),
                           ));
                         }
                       },

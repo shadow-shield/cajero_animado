@@ -25,7 +25,7 @@ class ATMModel {
   Map<String, int> intentosClave = {};
   int? codigoTemporal;
   int tiempocodigo = 0;
-  final int codigofijo = 654321;
+  final int codigofijo = 112685;
 
   bool autenticar(String tarjeta, String clave) {
     if (intentosClave[tarjeta] != null && intentosClave[tarjeta]! >= 3) {
@@ -66,18 +66,18 @@ class ATMModel {
   List<int> calcularBilletesUsados(int cantidad) {
     List<int> billetesUsados = [];
     int cantidadActual = 0;
-    int n = 0;
+    int reinicio = 0;
 
     while (cantidadActual < cantidad) {
-      for (int i = n; i < billetes.length; i++) {
+      for (int i = reinicio; i < billetes.length; i++) {
         if ((cantidadActual + billetes[i]) <= cantidad) {
           cantidadActual += billetes[i];
           billetesUsados.add(billetes[i]);
         }
       }
-      n += 1;
-      if (n == billetes.length) {
-        n = 0;
+      reinicio += 1;
+      if (reinicio == billetes.length) {
+        reinicio = 0;
       }
     }
     return billetesUsados;

@@ -58,7 +58,7 @@ class PantallaReciboFijo extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      AnimatedSwitcher(
+                      const AnimatedSwitcher(
                         duration: Duration(seconds: 1),
                         child: Center(
                           child: Text(
@@ -84,12 +84,12 @@ class PantallaReciboFijo extends StatelessWidget {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      Text('Fecha: ',
+                                      const Text('Fecha: ',
                                           style: TextStyle(
                                               color: Colors.black38,
                                               fontSize: 14)),
-                                      Text(''),
-                                      Text('Hora: ',
+                                      const Text(''),
+                                      const Text('Hora: ',
                                           style: TextStyle(
                                               color: Colors.black38,
                                               fontSize: 14)),

@@ -190,7 +190,7 @@ class PantallaRetiroTemporal extends StatelessWidget {
                         if (controller.validarCantidad(cantidad)) {
                           controller.calcularBilletes(cantidad);
                           Navigator.of(context).pop();
-                          Get.toNamed('/recibo');
+                          Get.toNamed('/codigo-temporal');
                         } else {
                           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                             content: Text('Ingrese un múltiplo de 10.000'),
